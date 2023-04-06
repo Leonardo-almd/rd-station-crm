@@ -1,0 +1,12 @@
+<po-page-default p-title="Criar Tarefa">
+  <!-- <po-table [p-items]="items" [p-columns]="columns">
+    <ng-template p-table-column-template p-property="deal_products" let-value>
+      <span *ngFor="let product of value">{{product?.name}}<br></span>
+    </ng-template>
+   </po-table> -->
+   <po-table [p-items]="items" [p-columns]="columns">
+  </po-table>
+
+  <po-loading-overlay [hidden]="!(items.length == 0)" p-text="Carregando, aguarde...">
+  </po-loading-overlay>
+</po-page-default>

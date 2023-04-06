@@ -1,1 +1,87 @@
-<p>opportunity works!</p>
+<po-page-default p-title="Criar oportunidade">
+  <po-loading-overlay [hidden]="importLoading" p-text="Carregando, aguarde...">
+  </po-loading-overlay>
+  <form [formGroup]="form">
+    <h3 class="subtitle">Oportunidade</h3>
+    <div class="po-row" *ngIf="sources.length >= 1 && funnel.length >= 1">
+      <po-input
+        class="po-md-5"
+        name="nameDeal"
+        p-label="Nome da Oportunidade"
+        p-required
+        [p-show-required]="true"
+        formControlName="nameDeal"
+        p-placeholder="Oportunidade"
+        p-clean
+      >
+      </po-input>
+      <po-radio-group
+        class="po-md-4"
+        name="funnel"
+        p-label="Funil"
+        [p-options]="funnel"
+        [p-show-required]="true"
+        (p-change)="addFunnelStep($event)"
+      >
+      </po-radio-group>
+      <po-select
+      *ngIf="funnelStep.length >= 1"
+          class="po-md-4"
+          name="funnelStep"
+          p-label="Etapa do funil"
+          [p-options]="funnelStep"
+          [p-required]="true"
+          [p-show-required]="true"
+          >
+      </po-select>
+      <po-input
+        class="po-md-4"
+        name="campanha"
+        p-label="Campanha"
+        p-required
+        [p-show-required]="true"
+        p-placeholder="id"
+        p-clean
+      >
+    </po-input>
+      <po-select
+          class="po-md-4"
+          name="source"
+          p-label="Fonte"
+          p-placeholder="De onde veio:"
+          [p-options]="sources"
+          [p-required]="true"
+          [p-show-required]="true"
+          >
+      </po-select>
+    </div>
+    <h3 class="subtitle">Empresa</h3>
+    <div class="po-row" *ngIf="organizations.length >=1">
+      <po-select
+          class="po-md-4"
+          name="organization"
+          p-label="Nome da empresa"
+          p-placeholder="Nome"
+          [p-options]="organizations"
+          [p-required]="true"
+          [p-show-required]="true"
+          >
+      </po-select>
+    </div>
+    <h3 class="subtitle">Contatos</h3>
+    <div class="po-row" *ngIf="contacts.length >=1">
+      <po-select
+      class="po-md-4"
+      name="contact"
+      p-label="Contatos"
+      [p-options]="contacts"
+      [p-required]="true"
+      [p-show-required]="true"
+      >
+  </po-select>
+    </div>
+  </form>
+  <po-divider></po-divider>
+
+  <po-button p-label="Criar" (p-click)="onButtonClick()"> </po-button>
+</po-page-default>
