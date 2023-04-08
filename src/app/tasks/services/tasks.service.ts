@@ -15,6 +15,7 @@ export class TasksService {
     return this.http.get(`/api/deals?token=626a92080b9dd9000c709b97&page=1&limit=200`);
   }
 
-
-
+  createTask(payload: any) {
+    return this.http.post(`/api/tasks?token=626a92080b9dd9000c709b97`, payload);
+  }
 }

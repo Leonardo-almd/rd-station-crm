@@ -15,13 +15,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TasksComponent } from './tasks/tasks.component';
 import { PoPageDynamicTableModule } from '@po-ui/ng-templates';
+import { FormComponent } from './tasks/form/form.component';
+import { PoDisclaimerGroupModule } from '@po-ui/ng-components';
+import { PoNotificationModule } from '@po-ui/ng-components';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OpportunityComponent,
-    TasksComponent
+    TasksComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { PoPageDynamicTableModule } from '@po-ui/ng-templates';
     PoDividerModule,
     PoLoadingModule,
     ReactiveFormsModule,
-    PoPageDynamicTableModule
+    PoPageDynamicTableModule,
+    PoDisclaimerGroupModule,
+    PoNotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

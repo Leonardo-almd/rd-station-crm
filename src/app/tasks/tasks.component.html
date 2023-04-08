@@ -1,12 +1,20 @@
 <po-page-default p-title="Criar Tarefa">
-  <!-- <po-table [p-items]="items" [p-columns]="columns">
-    <ng-template p-table-column-template p-property="deal_products" let-value>
-      <span *ngFor="let product of value">{{product?.name}}<br></span>
-    </ng-template>
-   </po-table> -->
-   <po-table [p-items]="items" [p-columns]="columns">
+  <div class="po-row">
+    <form [formGroup]="form" class="search">
+      <po-input formControlName="search" p-clean p-placeholder="Pesquisar" (keydown.enter)="mapToSelectItems(form.value.search)"> </po-input>
+      <po-button (p-click)="mapToSelectItems(this.form.value.search)" p-icon="po-icon-search"> </po-button>
+    </form>
+  </div>
+  <div class="po-row">
+    <po-disclaimer-group [p-disclaimers]="disclaimer" (p-remove)="mapToSelectItems()"></po-disclaimer-group>
+  </div>
+  <hr/>
+  <div class="po-row">
+    <po-table [p-items]="items" [p-columns]="columns">
   </po-table>
+  <app-form></app-form>
 
-  <po-loading-overlay [hidden]="!(items.length == 0)" p-text="Carregando, aguarde...">
+  <po-loading-overlay [hidden]="loading" p-text="Carregando, aguarde...">
   </po-loading-overlay>
+  </div>
 </po-page-default>

@@ -1,0 +1,62 @@
+<po-modal
+  [p-primary-action]="onPrimaryAction"
+  [p-secondary-action]="onSecondaryAction"
+  #modal
+  [p-title]="title"
+  p-size="auto"
+>
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input
+        class="po-md-3"
+        name="dealId"
+        p-disabled
+        p-label="Id da Oportunidade"
+        formControlName="deal_id"
+      >
+      </po-input>
+      <po-select
+        class="po-md-3"
+        name="type"
+        p-label="Tipo"
+        [p-options]="types"
+        [p-required]="true"
+        [p-show-required]="true"
+        [formControl]="form.controls['type']"
+      >
+      </po-select>
+      <po-input
+        class="po-md-10"
+        name="subject"
+        p-label="Assunto"
+        p-required
+        [p-show-required]="true"
+        formControlName="nameDeal"
+        p-placeholder="Assunto"
+        p-clean
+        formControlName="subject"
+      >
+      </po-input>
+        <po-datepicker
+        p-placeholder="dd/mm/aaaa"
+        formControlName="date"
+         class="po-md-3"
+         name="datepicker"
+         p-label="Data"
+         p-required="true"
+         [p-show-required]="true">
+      </po-datepicker>
+      <po-input
+        class="po-md-10"
+        name="notes"
+        p-label="Anotação"
+        [p-optional]="true"
+        formControlName="nameDeal"
+        p-placeholder="Insira uma descrição para esta tarefa"
+        p-clean
+        formControlName="notes"
+      >
+      </po-input>
+    </div>
+  </form>
+</po-modal>
