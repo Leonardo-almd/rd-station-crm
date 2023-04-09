@@ -27,4 +27,8 @@ export class OpportunityService {
     return this.http.get(`/api/organizations?token=626a92080b9dd9000c709b97`)
   }
 
+  getCampaigns(): Observable<any> {
+    return this.http.get(`/api/campaigns?token=626a92080b9dd9000c709b97`)
+  }
+
 }

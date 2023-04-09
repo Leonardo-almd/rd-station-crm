@@ -18,6 +18,7 @@
       <po-radio-group
         class="po-md-4"
         name="funnel"
+        formControlName="funnel"
         p-label="Funil"
         [p-options]="funnel"
         [p-show-required]="true"
@@ -28,26 +29,28 @@
       *ngIf="funnelStep.length >= 1"
           class="po-md-4"
           name="funnelStep"
+          formControlName="funnelStep"
           p-label="Etapa do funil"
           [p-options]="funnelStep"
           [p-required]="true"
           [p-show-required]="true"
           >
       </po-select>
-      <po-input
+      <po-select
         class="po-md-4"
         name="campanha"
         p-label="Campanha"
-        p-required
+        formControlName="campanha"
+        [p-required]="true"
         [p-show-required]="true"
-        p-placeholder="id"
-        p-clean
+        [p-options]="campaigns"
       >
-    </po-input>
+    </po-select>
       <po-select
           class="po-md-4"
           name="source"
           p-label="Fonte"
+          formControlName="source"
           p-placeholder="De onde veio:"
           [p-options]="sources"
           [p-required]="true"
@@ -61,6 +64,7 @@
           class="po-md-4"
           name="organization"
           p-label="Nome da empresa"
+          formControlName="organization"
           p-placeholder="Nome"
           [p-options]="organizations"
           [p-required]="true"
@@ -70,18 +74,17 @@
     </div>
     <h3 class="subtitle">Contatos</h3>
     <div class="po-row" *ngIf="contacts.length >=1">
-      <po-select
-      class="po-md-4"
+      <po-multiselect
+      class="po-md-6"
       name="contact"
       p-label="Contatos"
       [p-options]="contacts"
-      [p-required]="true"
-      [p-show-required]="true"
+      formControlName="contact"
       >
-  </po-select>
+  </po-multiselect>
     </div>
   </form>
   <po-divider></po-divider>
 
-  <po-button p-label="Criar" (p-click)="onButtonClick()"> </po-button>
+  <po-button p-label="Criar" (p-click)="onButtonClick()" [p-disabled]="disable"> </po-button>
 </po-page-default>
