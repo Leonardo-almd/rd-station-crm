@@ -18,6 +18,7 @@ import { PoPageDynamicTableModule } from '@po-ui/ng-templates';
 import { FormComponent } from './tasks/form/form.component';
 import { PoDisclaimerGroupModule } from '@po-ui/ng-components';
 import { PoNotificationModule } from '@po-ui/ng-components';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PoNotificationModule } from '@po-ui/ng-components';
     AppComponent,
     OpportunityComponent,
     TasksComponent,
-    FormComponent
+    FormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

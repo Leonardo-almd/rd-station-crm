@@ -1,34 +1,75 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { PoTableColumn } from '@po-ui/ng-components';
+import { Observable, forkJoin, mergeMap } from 'rxjs';
+import { environment } from 'src/app/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OpportunityService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getContacts(): Observable<any> {
-    return this.http.get(`/api/contacts?token=626a92080b9dd9000c709b97&page=1&limit=200`);
+    const token = environment.token;
+    const limit = 200;
+    // Faz a primeira solicitação para obter as informações de metadados
+    return this.http
+      .get(`/api/contacts?token=${token}&limit=${limit}&metadata=true`)
+      .pipe(
+        mergeMap((response: any) => {
+          console.log(response);
+          const totalCount = response.total;
+          const totalPages = Math.ceil(totalCount / 200);
+
+          const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+          const observables = pages.map((page) =>
+            this.http.get(
+              `/api/contacts?token=${token}&limit=${limit}&page=${page}`
+            )
+          );
+
+          return forkJoin(observables);
+        })
+      );
   }
 
   getFunnel(): Observable<any> {
-    return this.http.get(`/api/deal_pipelines?token=626a92080b9dd9000c709b97`)
+    return this.http.get(`/api/deal_pipelines?token=${environment.token}`);
   }
 
   getSource(): Observable<any> {
-    return this.http.get(`/api/deal_sources?token=626a92080b9dd9000c709b97`)
+    return this.http.get(`/api/deal_sources?token=${environment.token}`);
   }
 
-  getOrganization(): Observable<any> {
-    return this.http.get(`/api/organizations?token=626a92080b9dd9000c709b97`)
+  getOrganizations(): Observable<any> {
+    const token = environment.token;
+    const limit = 200;
+    // Faz a primeira solicitação para obter as informações de metadados
+    return this.http
+      .get(`/api/organizations?token=${token}&limit=${limit}&metadata=true`)
+      .pipe(
+        mergeMap((response: any) => {
+          console.log(response);
+          const totalCount = response.total;
+          const totalPages = Math.ceil(totalCount / 200);
+
+          const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+          const observables = pages.map((page) =>
+            this.http.get(
+              `/api/organizations?token=${token}&limit=${limit}&page=${page}`
+            )
+          );
+
+          return forkJoin(observables);
+        })
+      );
   }
 
   getCampaigns(): Observable<any> {
-    return this.http.get(`/api/campaigns?token=626a92080b9dd9000c709b97`)
+    return this.http.get(`/api/campaigns?token=${environment.token}`);
   }
 
+  createOpportunity(payload: any) {
+    return this.http.post(`/api/deals?token=${environment.token}`, payload);
+  }
 }

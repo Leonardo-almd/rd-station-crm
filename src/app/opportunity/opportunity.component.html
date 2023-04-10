@@ -1,16 +1,16 @@
 <po-page-default p-title="Criar oportunidade">
   <po-loading-overlay [hidden]="importLoading" p-text="Carregando, aguarde...">
   </po-loading-overlay>
-  <form [formGroup]="form">
+  <form [formGroup]="form" *ngIf="contacts.length >=1 && organizations.length >= 1">
     <h3 class="subtitle">Oportunidade</h3>
-    <div class="po-row" *ngIf="sources.length >= 1 && funnel.length >= 1">
+    <div class="po-row" *ngIf="sources.length >= 1 && funnel.length >= 1 && campaigns.length >= 1">
       <po-input
         class="po-md-5"
-        name="nameDeal"
+        name="deal"
         p-label="Nome da Oportunidade"
         p-required
         [p-show-required]="true"
-        formControlName="nameDeal"
+        formControlName="deal"
         p-placeholder="Oportunidade"
         p-clean
       >
@@ -29,7 +29,8 @@
       *ngIf="funnelStep.length >= 1"
           class="po-md-4"
           name="funnelStep"
-          formControlName="funnelStep"
+          [formControl]="form.controls['funnelStep']"
+
           p-label="Etapa do funil"
           [p-options]="funnelStep"
           [p-required]="true"
@@ -38,9 +39,10 @@
       </po-select>
       <po-select
         class="po-md-4"
-        name="campanha"
+        name="campaign"
         p-label="Campanha"
-        formControlName="campanha"
+        [formControl]="form.controls['campaign']"
+
         [p-required]="true"
         [p-show-required]="true"
         [p-options]="campaigns"
@@ -48,9 +50,10 @@
     </po-select>
       <po-select
           class="po-md-4"
-          name="source"
+          name="deal_source"
           p-label="Fonte"
-          formControlName="source"
+          [formControl]="form.controls['deal_source']"
+
           p-placeholder="De onde veio:"
           [p-options]="sources"
           [p-required]="true"
@@ -59,12 +62,12 @@
       </po-select>
     </div>
     <h3 class="subtitle">Empresa</h3>
-    <div class="po-row" *ngIf="organizations.length >=1">
+    <div class="po-row">
       <po-select
           class="po-md-4"
           name="organization"
           p-label="Nome da empresa"
-          formControlName="organization"
+          [formControl]="form.controls['organization']"
           p-placeholder="Nome"
           [p-options]="organizations"
           [p-required]="true"
@@ -73,18 +76,18 @@
       </po-select>
     </div>
     <h3 class="subtitle">Contatos</h3>
-    <div class="po-row" *ngIf="contacts.length >=1">
+    <div class="po-row" >
       <po-multiselect
       class="po-md-6"
       name="contact"
       p-label="Contatos"
       [p-options]="contacts"
-      formControlName="contact"
+      formControlName="contacts"
       >
   </po-multiselect>
     </div>
-  </form>
-  <po-divider></po-divider>
-
+    <po-divider></po-divider>
   <po-button p-label="Criar" (p-click)="onButtonClick()" [p-disabled]="disable"> </po-button>
+  </form>
+
 </po-page-default>

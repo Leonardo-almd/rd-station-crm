@@ -14,8 +14,8 @@ export class AppComponent {
   loading:boolean = true
 
   readonly menus: Array<PoMenuItem> = [
-    { label: 'Oportunidades', action: () => this.router.navigate(['opportunity']) },
-    { label: 'Tarefas', action: () => this.router.navigate(['tasks']) }
+    { label: 'Criar oportunidades', action: () => this.router.navigate(['opportunity']) },
+    { label: 'Criar tarefas', action: () => this.router.navigate(['tasks']) }
   ];
 
 

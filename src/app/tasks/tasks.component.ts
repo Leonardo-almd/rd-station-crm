@@ -4,6 +4,7 @@ import { FormComponent } from './form/form.component';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { PoDisclaimer, PoNotificationService } from '@po-ui/ng-components';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -74,7 +75,9 @@ return dataFormatada
       this.disclaimer = []
 this.loading = false
       this.service.getOpportunity().subscribe((data) => {
-        data.deals.filter((item: any) => {
+        const pages = data.length-1
+      for (let i = 0; i <= pages; i++) {
+         data[i].deals.filter((item: any) => {
           item.created_at = this.formatedDate(item.created_at)
             if (item.name?.toLowerCase().includes(search.toLowerCase())) this.items.push(item);
             if (item.organization?.name?.toLowerCase().includes(search.toLowerCase())) this.items.push(item);
@@ -84,29 +87,41 @@ this.loading = false
 
 
         });
+      }
+
       });
       this.form.patchValue({
         search: ''
       });
       this.disclaimer = [{label: search, value: search}]
-      setTimeout(()=>{
-        this.loading = true
-      }, 2000)
+      const subscription = interval(1000).subscribe(() => {
+        if (this.items.length>0) {
+          this.loading = true;
+          subscription.unsubscribe();
+        }
+      });
+      subscription
 
     } else  {
       this.items = []
       this.disclaimer = []
       this.loading = false
       this.service.getOpportunity().subscribe((data) => {
-
-        data.deals.map((item: any) => {
+        const pages = data.length-1
+      for (let i = 0; i <= pages; i++) {
+        data[i].deals.map((item: any) => {
           item.created_at = this.formatedDate(item.created_at)
           this.items.push(item)
         } );
+      }
       });
-      setTimeout(()=>{
-        this.loading = true
-      }, 2000)
+      const subscription = interval(1000).subscribe(() => {
+        if (this.items.length>0) {
+          this.loading = true;
+          subscription.unsubscribe();
+        }
+      });
+      subscription
     }
   }
 }

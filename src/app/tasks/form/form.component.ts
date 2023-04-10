@@ -3,6 +3,7 @@ import { PoDialogService, PoModalAction, PoModalComponent, PoSelectOption } from
 import { TasksComponent } from '../tasks.component';
 import { TasksService } from '../services/tasks.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-form',
@@ -23,6 +24,7 @@ export class FormComponent {
   ];
 
   form;
+  defaultFormValue;
 
 
   constructor(private poDialog: PoDialogService, private service: TasksService, private formBuilder: FormBuilder) {
@@ -34,6 +36,7 @@ export class FormComponent {
       date: new FormControl(),
       notes: new FormControl()
     });
+    this.defaultFormValue = this.form.value
   }
 
   ngOnInit () {
@@ -49,7 +52,9 @@ export class FormComponent {
   }
 
   title = 'Criar Tarefa'
+
   open(opportunity:any) {
+    console.log(opportunity)
     this.form.patchValue({
       deal_id: opportunity.id,
       date: '',
@@ -71,12 +76,15 @@ export class FormComponent {
     action: () => {
       const payload = {
         ...this.form.value,
-        user_ids: ['626a92080b9dd9000c709b95']
+        user_ids: [environment.user_id]
       }
       console.log(payload)
 
       // this.service.createTask(payload)
       this.poModal?.close();
+      if(this.form.value){
+        this.form.reset(this.defaultFormValue)
+      }
     },
     label: 'Criar',
     disabled: true
