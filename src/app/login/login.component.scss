@@ -1,0 +1,17 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  po-input{
+    width: 100%;
+  }
+  po-password{
+    width: 100%;
+  }
+  po-button{
+    margin-top: 10px;
+  }
+}

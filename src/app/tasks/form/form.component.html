@@ -57,6 +57,16 @@
         formControlName="notes"
       >
       </po-input>
+      <po-multiselect
+          class="po-md-8"
+          name="user"
+          p-label="Responsáveis"
+          [formControl]="form.controls['user']"
+          [p-options]="users"
+          [p-required]="true"
+          [p-show-required]="true"
+          >
+      </po-multiselect>
     </div>
   </form>
 </po-modal>

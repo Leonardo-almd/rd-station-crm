@@ -61,7 +61,9 @@
           >
       </po-select>
     </div>
-    <h3 class="subtitle">Empresa</h3>
+    <div class="block">
+      <div>
+<h3 class="subtitle">Empresa</h3>
     <div class="po-row">
       <po-select
           class="po-md-4"
@@ -75,8 +77,10 @@
           >
       </po-select>
     </div>
-    <h3 class="subtitle">Contatos</h3>
-    <div class="po-row" >
+      </div>
+      <div id="contacts">
+        <h3 class="subtitle">Contatos</h3>
+    <div class="po-row" id="contacts">
       <po-multiselect
       class="po-md-6"
       name="contact"
@@ -85,6 +89,21 @@
       formControlName="contacts"
       >
   </po-multiselect>
+    </div>
+      </div>
+    </div>
+    <h3 class="subtitle">Usuário</h3>
+    <div class="po-row">
+      <po-select
+          class="po-md-4"
+          name="user"
+          p-label="Responsável"
+          [formControl]="form.controls['user']"
+          [p-options]="users"
+          [p-required]="true"
+          [p-show-required]="true"
+          >
+      </po-select>
     </div>
     <po-divider></po-divider>
   <po-button p-label="Criar" (p-click)="onButtonClick()" [p-disabled]="disable"> </po-button>

@@ -2,3 +2,18 @@
   color: #753399;
   padding: 5px;
 }
+
+.block {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  #contacts{
+    width: 100%;
+  }
+  po-select{
+    width: 450px;
+  }
+  po-multiselect{
+    width: 100%;
+  }
+}

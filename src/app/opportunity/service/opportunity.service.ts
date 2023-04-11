@@ -69,7 +69,11 @@ export class OpportunityService {
     return this.http.get(`/api/campaigns?token=${environment.token}`);
   }
 
-  createOpportunity(payload: any) {
+  getUsers(): Observable<any> {
+    return this.http.get(`/api/users?token=${environment.token}`);
+  }
+
+  createOpportunity(payload: any): Observable<any> {
     return this.http.post(`/api/deals?token=${environment.token}`, payload);
   }
 }

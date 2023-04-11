@@ -17,6 +17,9 @@ import {
 } from '@angular/forms';
 import { interval } from 'rxjs';
 import { environment } from '../environments/environments';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opportunity',
@@ -31,6 +34,7 @@ export class OpportunityComponent {
   funnelStep: PoSelectOption[] = [];
   sources: PoSelectOption[] = [];
   organizations: PoSelectOption[] = [];
+  users: PoSelectOption[] = []
   importLoading = false;
   disable = true;
   campaigns: PoSelectOption[] = [];
@@ -38,7 +42,9 @@ export class OpportunityComponent {
   constructor(
     private service: OpportunityService,
     private formBuilder: FormBuilder,
-    private poNotification: PoNotificationService
+    private poNotification: PoNotificationService,
+    private auth: AngularFireAuth,
+    private router: Router
   ) {
     this.form = this.formBuilder.group({
       deal: new FormControl(),
@@ -48,19 +54,26 @@ export class OpportunityComponent {
       contacts: new FormControl(),
       deal_source: new FormControl(),
       organization: new FormControl(),
+      user: new FormControl()
     });
-    this.defaultFormValue = this.form.value
+    this.defaultFormValue = this.form.value;
   }
 
   ngOnInit() {
+    this.auth.authState.subscribe((user) => {
+      if (user) {
+      } else {
+        this.router.navigate(['login']);
+      }
+    });
     this.mapToSelectAll();
     const subscription = interval(1000).subscribe(() => {
-      if (this.contacts.length>0 && this.organizations.length>0) {
+      if (this.contacts.length > 0 && this.organizations.length > 0) {
         this.importLoading = true;
         subscription.unsubscribe();
       }
     });
-    subscription
+    subscription;
     this.form.valueChanges.subscribe((newValue) => {
       console.log(newValue);
       if (
@@ -69,7 +82,8 @@ export class OpportunityComponent {
         newValue.funnelStep !== null &&
         newValue.campaign !== null &&
         newValue.deal_source !== null &&
-        newValue.organization !== null
+        newValue.organization !== null &&
+        newValue.user !== null
       ) {
         this.disable = false;
       } else {
@@ -79,40 +93,68 @@ export class OpportunityComponent {
   }
 
   public onButtonClick() {
+    console.log(this.form.value)
     const payload = {
       ...this.form.value,
-      campaign: {_id: this.form.value.campaign?._id},
-      organization: {_id: this.form.value.organization?._id},
-      deal_source: {_id: this.form.value.deal_source?._id},
+      campaign: { _id: this.form.value.campaign?._id },
+      organization: { _id: this.form.value.organization?._id },
+      deal_source: { _id: this.form.value.deal_source?._id },
       deal: {
+        deal_custom_fields: [],
+        rating: 1,
         name: this.form.value.deal,
-        user_id: environment.user_id,
-        deal_stage_id: this.form.value.funnelStep?.id
-      }
-    }
-    delete payload.funnel
-    delete payload.funnelStep
-    console.log(payload)
+        user_id: this.form.value.user._id,
+        deal_stage_id: this.form.value.funnelStep?.id,
+      },
+      deal_products: []
+    };
+    delete payload.funnel;
+    delete payload.funnelStep;
+    delete payload.user;
+    console.log(payload);
     try {
-    // this.service.createOpportunity(payload)
-    this.poNotification.success('Oportunidade criada com sucesso')
-    this.form.reset(this.defaultFormValue)
-
+      this.service.createOpportunity(payload).subscribe({
+        next: res => {
+          this.poNotification.success('Oportunidade cadastrada com sucesso')
+        },
+        error: err => {
+          this.poNotification.error('Erro ao cadastrar oportunidade')
+          console.log(err)
+        }
+      }
+      )
+      this.form.reset(this.defaultFormValue);
     } catch (error: any) {
-      this.poNotification.error(error)
-
+      this.poNotification.error(error);
     }
   }
 
   public mapToSelectAll(): void {
     this.service.getContacts().subscribe((data) => {
-      const pages = data.length-1
+      const pages = data.length - 1;
       for (let i = 0; i <= pages; i++) {
-        data[i].contacts.map((item: any) =>
-        this.contacts.push({ label: item.name, value: item })
-      );
-      }
+        data[i].contacts.map((item: any) => {
+          const result: any = {
+          birthday: item.birthday,
+          emails: item.emails.map((email: any) => {email.email}),
+          facebook: item.facebook,
+          legal_bases: item.legal_bases,
+          linkedin: item.linkedin,
+          name: item.name,
+          phones: item.phones.map((phone: any) => {
+            return {
+            phone: phone.phone,
+            type: phone.type
+          }
+          }) ,
+          skipe: item.skipe,
+          title: item.title
+        }
+          this.contacts.push({ label: result.name, value: result })
+        }
 
+        );
+      }
     });
     this.service.getFunnel().subscribe((data) => {
       data.map((item: any) =>
@@ -125,7 +167,7 @@ export class OpportunityComponent {
       );
     });
     this.service.getOrganizations().subscribe((data: any) => {
-      const pages = data.length-1
+      const pages = data.length - 1;
       for (let i = 0; i <= pages; i++) {
         data[i].organizations.map((item: any) =>
           this.organizations.push({ label: item.name, value: item })
@@ -137,6 +179,11 @@ export class OpportunityComponent {
         this.campaigns.push({ label: item.name, value: item })
       );
     });
+    this.service.getUsers().subscribe((data) => {
+      data.users.map((item: any) =>
+      this.users.push({label: item.name, value: item})
+      )
+    })
   }
 
   public addFunnelStep(funnel: any): void {
@@ -144,5 +191,4 @@ export class OpportunityComponent {
       this.funnelStep.push({ label: f.name, value: f });
     });
   }
-
 }

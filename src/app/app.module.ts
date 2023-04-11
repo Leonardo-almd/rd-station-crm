@@ -19,6 +19,8 @@ import { FormComponent } from './tasks/form/form.component';
 import { PoDisclaimerGroupModule } from '@po-ui/ng-components';
 import { PoNotificationModule } from '@po-ui/ng-components';
 import { LoginComponent } from './login/login.component';
+import { AngularFireModule} from '@angular/fire/compat'
+import { environment } from './environments/environments';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     PoPageDynamicTableModule,
     PoDisclaimerGroupModule,
-    PoNotificationModule
+    PoNotificationModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

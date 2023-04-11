@@ -21,7 +21,8 @@ export class TasksService {
         mergeMap((response: any) => {
           console.log(response);
           const totalCount = response.total;
-          const totalPages = Math.ceil(totalCount / 200);
+          const totalPages = 1
+          //  Math.ceil(totalCount / 200);
 
           const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
           const observables = pages.map((page) =>
@@ -35,7 +36,11 @@ export class TasksService {
       );
   }
 
-  createTask(payload: any) {
-    return this.http.post(`/api/tasks?token=${environment.token}`, payload);
+  createTask(payload: any): Observable<any> {
+    return this.http.post(`/api/tasks?token=${environment.token}`, payload)
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get(`/api/users?token=${environment.token}`);
   }
 }
