@@ -3,6 +3,8 @@ import { PoModule } from '@po-ui/ng-components';
 import { LoginComponent } from './components/login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PoFieldModule } from '@po-ui/ng-components';
+import { PoButtonModule } from '@po-ui/ng-components';
 
 
 
@@ -10,8 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [LoginComponent],
   imports: [
     LoginRoutingModule,
-    PoModule,
-    ReactiveFormsModule,
+    PoFieldModule,
+    PoButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class LoginModule { }

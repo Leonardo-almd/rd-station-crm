@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule} from '@angular/fire/compat'
 import { environment } from './environments/environments';
+import { PoToolbarModule } from '@po-ui/ng-components';
+import { PoMenuModule } from '@po-ui/ng-components';
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { environment } from './environments/environments';
   imports: [
     BrowserModule,
     HttpClientModule,
-    PoModule,
+    PoMenuModule,
+    PoToolbarModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
     AngularFireModule.initializeApp(environment.firebaseConfig)
