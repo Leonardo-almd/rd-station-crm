@@ -4,20 +4,14 @@ import {
   PoDialogService,
   PoModalAction,
   PoModalComponent,
-  PoNotification,
-  PoNotificationModule,
   PoNotificationService,
   PoSelectOption,
 } from '@po-ui/ng-components';
-import { TasksComponent } from '../tasks.component';
-import { TasksService } from '../services/tasks.service';
+import { TasksService } from '../../../core/services/tasks.service';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
-  Validators,
 } from '@angular/forms';
-import { environment } from 'src/app/environments/environments';
 import { Router } from '@angular/router';
 
 @Component({
@@ -115,17 +109,17 @@ export class FormComponent {
       };
       delete payload.user;
       console.log(payload);
-      this.service.createTask(payload).subscribe({
-        next: (res) => {
-          this.poNotification.success('Tarefa cadastrada com sucesso');
-          this.poModal?.close();
-        },
-        error: (err) => {
-          this.poNotification.error('Erro ao cadastrar tarefa');
-          console.log(err);
-          this.poModal?.close();
-        },
-      });
+      // this.service.createTask(payload).subscribe({
+      //   next: (res) => {
+      //     this.poNotification.success('Tarefa cadastrada com sucesso');
+      //     this.poModal?.close();
+      //   },
+      //   error: (err) => {
+      //     this.poNotification.error('Erro ao cadastrar tarefa');
+      //     console.log(err);
+      //     this.poModal?.close();
+      //   },
+      // });
     },
     label: 'Criar',
     disabled: true,

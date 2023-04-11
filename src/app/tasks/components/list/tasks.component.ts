@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { TasksService } from './services/tasks.service';
-import { FormComponent } from './form/form.component';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { PoDisclaimer, PoNotificationService } from '@po-ui/ng-components';
 import { interval } from 'rxjs';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormComponent } from '../form/form.component';
+import { TasksService } from '../../../core/services/tasks.service';
 
 @Component({
   selector: 'app-tasks',

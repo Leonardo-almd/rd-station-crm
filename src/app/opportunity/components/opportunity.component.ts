@@ -8,7 +8,7 @@ import {
   PoNotificationService,
   PoSelectOption,
 } from '@po-ui/ng-components';
-import { OpportunityService } from './service/opportunity.service';
+import { OpportunityService } from '../../core/services/opportunity.service';
 import {
   FormBuilder,
   FormControl,
@@ -16,7 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { interval } from 'rxjs';
-import { environment } from '../environments/environments';
+import { environment } from '../../environments/environments';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';

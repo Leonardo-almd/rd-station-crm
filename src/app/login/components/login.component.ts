@@ -1,7 +1,7 @@
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { LoginService } from './service/login.service';
+import { LoginService } from '../../core/services/login.service';
 import { PoNotificationService } from '@po-ui/ng-components';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { Router } from '@angular/router';
@@ -32,11 +32,6 @@ export class LoginComponent {
       if (user) {
         console.log('usuario logado');
         this.router.navigate(['opportunity']);
-
-        // o usuário está logado, faça alguma coisa aqui
-      } else {
-        console.log('nao logado');
-        // o usuário não está logado, faça alguma coisa aqui
       }
     });
   }
