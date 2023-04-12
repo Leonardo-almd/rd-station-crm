@@ -52,19 +52,5 @@ export class LoginComponent {
         const errorMessage = error.message;
         this.poNotification.error(errorMessage)
       });
-    //     const auth = getAuth();
-    // createUserWithEmailAndPassword(auth, this.form.value.username, this.form.value.password)
-    //   .then((userCredential) => {
-    //     console.log(userCredential)
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // ..
-    //   });
   }
 }

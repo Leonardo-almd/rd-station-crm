@@ -44,6 +44,7 @@ export class OpportunityService {
   getOrganizations(): Observable<any> {
     const token = environment.token;
     const limit = 200;
+
     // Faz a primeira solicitação para obter as informações de metadados
     return this.http
       .get(`/api/organizations?token=${token}&limit=${limit}&metadata=true`)

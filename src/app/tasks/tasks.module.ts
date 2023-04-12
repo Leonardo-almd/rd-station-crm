@@ -24,7 +24,8 @@ import { PoLoadingModule } from '@po-ui/ng-components';
     PoButtonModule,
     PoDisclaimerGroupModule,
     PoTableModule,
-    PoLoadingModule
+    PoLoadingModule,
+    PoModule
   ]
 })
 export class TasksModule { }

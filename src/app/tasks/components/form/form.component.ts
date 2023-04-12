@@ -105,21 +105,22 @@ export class FormComponent {
     action: () => {
       const payload = {
         ...this.form.value,
-        user_ids: [this.form.value.user],
+        user_ids: this.form.value.user,
       };
       delete payload.user;
       console.log(payload);
-      // this.service.createTask(payload).subscribe({
-      //   next: (res) => {
-      //     this.poNotification.success('Tarefa cadastrada com sucesso');
-      //     this.poModal?.close();
-      //   },
-      //   error: (err) => {
-      //     this.poNotification.error('Erro ao cadastrar tarefa');
-      //     console.log(err);
-      //     this.poModal?.close();
-      //   },
-      // });
+      this.service.createTask(payload).subscribe({
+        next: (res) => {
+          console.log(res)
+          this.poNotification.success('Tarefa cadastrada com sucesso');
+          this.poModal?.close();
+        },
+        error: (err) => {
+          this.poNotification.error('Erro ao cadastrar tarefa');
+          console.log(err);
+          this.poModal?.close();
+        },
+      });
     },
     label: 'Criar',
     disabled: true,

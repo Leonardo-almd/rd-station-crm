@@ -4,30 +4,37 @@ import { Observable, forkJoin, mergeMap } from 'rxjs';
 import { environment } from 'src/app/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TasksService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getOpportunity(): Observable<any> {
     const token = environment.token;
     const limit = 200;
-    // Faz a primeira solicitação para obter as informações de metadados
+
+    const hoje = new Date();
+    const diasASubtrair = 7;
+    const dataUmaSemanaAtras = new Date(
+      hoje.getTime() - diasASubtrair * 24 * 60 * 60 * 1000
+    );
+
+    const ano = dataUmaSemanaAtras.getFullYear();
+    const mes = (dataUmaSemanaAtras.getMonth() + 1).toString().padStart(2, '0');
+    const dia = dataUmaSemanaAtras.getDate().toString().padStart(2, '0');
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
     return this.http
-      .get(`/api/deals?token=${token}&limit=${limit}&metadata=true`)
+      .get(`/api/deals?token=${token}&limit=${limit}&created_at_period=${true}&start_date=${dataFormatada}&metadata=true`)
       .pipe(
         mergeMap((response: any) => {
-          console.log(response);
           const totalCount = response.total;
-          const totalPages = 1
-          //  Math.ceil(totalCount / 200);
+          const totalPages = Math.ceil(totalCount / 200);
 
           const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
           const observables = pages.map((page) =>
             this.http.get(
-              `/api/deals?token=${token}&limit=${limit}&page=${page}`
+              `/api/deals?token=${token}&limit=${limit}&created_at_period=${true}&start_date=${dataFormatada}&page=${page}`
             )
           );
 
@@ -37,7 +44,7 @@ export class TasksService {
   }
 
   createTask(payload: any): Observable<any> {
-    return this.http.post(`/api/tasks?token=${environment.token}`, payload)
+    return this.http.post(`/api/tasks?token=${environment.token}`, payload);
   }
 
   getUsers(): Observable<any> {

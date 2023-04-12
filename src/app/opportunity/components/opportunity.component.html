@@ -1,9 +1,9 @@
 <po-page-default p-title="Criar oportunidade">
   <po-loading-overlay [hidden]="importLoading" p-text="Carregando, aguarde...">
   </po-loading-overlay>
-  <form [formGroup]="form" *ngIf="contacts.length >=1 && organizations.length >= 1">
+  <form [formGroup]="form" *ngIf="importLoading">
     <h3 class="subtitle">Oportunidade</h3>
-    <div class="po-row" *ngIf="sources.length >= 1 && funnel.length >= 1 && campaigns.length >= 1">
+    <div class="po-row" >
       <po-input
         class="po-md-5"
         name="deal"
@@ -26,11 +26,10 @@
       >
       </po-radio-group>
       <po-select
-      *ngIf="funnelStep.length >= 1"
+      *ngIf="funnelStep.length>0"
           class="po-md-4"
           name="funnelStep"
           [formControl]="form.controls['funnelStep']"
-
           p-label="Etapa do funil"
           [p-options]="funnelStep"
           [p-required]="true"
@@ -42,10 +41,10 @@
         name="campaign"
         p-label="Campanha"
         [formControl]="form.controls['campaign']"
-
         [p-required]="true"
         [p-show-required]="true"
         [p-options]="campaigns"
+        (ngModelChange)="this.form.value.campaign = $event"
       >
     </po-select>
       <po-select
@@ -53,7 +52,6 @@
           name="deal_source"
           p-label="Fonte"
           [formControl]="form.controls['deal_source']"
-
           p-placeholder="De onde veio:"
           [p-options]="sources"
           [p-required]="true"

@@ -9,12 +9,11 @@
     <po-disclaimer-group [p-disclaimers]="disclaimer" (p-remove)="mapToSelectItems()"></po-disclaimer-group>
   </div>
   <hr/>
-  <div class="po-row">
-    <po-table [p-items]="items" [p-columns]="columns">
-  </po-table>
-  <app-form></app-form>
-
   <po-loading-overlay [hidden]="loading" p-text="Carregando, aguarde...">
   </po-loading-overlay>
+  <div class="po-row" id="table" >
+    <po-table [p-items]="items" [p-columns]="columns">
+  </po-table>
   </div>
+  <app-form></app-form>
 </po-page-default>

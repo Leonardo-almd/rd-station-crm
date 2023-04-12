@@ -15,7 +15,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { interval } from 'rxjs';
+import { interval, tap } from 'rxjs';
 import { environment } from '../../environments/environments';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -38,6 +38,7 @@ export class OpportunityComponent {
   importLoading = false;
   disable = true;
   campaigns: PoSelectOption[] = [];
+  showForm = false
 
   constructor(
     private service: OpportunityService,
@@ -46,6 +47,7 @@ export class OpportunityComponent {
     private auth: AngularFireAuth,
     private router: Router
   ) {
+    this.mapToSelectAll()
     this.form = this.formBuilder.group({
       deal: new FormControl(),
       funnel: new FormControl(),
@@ -66,9 +68,10 @@ export class OpportunityComponent {
         this.router.navigate(['login']);
       }
     });
-    this.mapToSelectAll();
+    // this.mapToSelectAll()
     const subscription = interval(1000).subscribe(() => {
       if (this.contacts.length > 0 && this.organizations.length > 0) {
+        console.log(this.campaigns)
         this.importLoading = true;
         subscription.unsubscribe();
       }
@@ -96,15 +99,15 @@ export class OpportunityComponent {
     console.log(this.form.value)
     const payload = {
       ...this.form.value,
-      campaign: { _id: this.form.value.campaign?._id },
-      organization: { _id: this.form.value.organization?._id },
-      deal_source: { _id: this.form.value.deal_source?._id },
+      campaign: { _id: this.form.value.campaign },
+      organization: { _id: this.form.value.organization },
+      deal_source: { _id: this.form.value.deal_source },
       deal: {
         deal_custom_fields: [],
         rating: 1,
         name: this.form.value.deal,
-        user_id: this.form.value.user._id,
-        deal_stage_id: this.form.value.funnelStep?.id,
+        user_id: this.form.value.user,
+        deal_stage_id: this.form.value.funnelStep,
       },
       deal_products: []
     };
@@ -129,7 +132,7 @@ export class OpportunityComponent {
     }
   }
 
-  public mapToSelectAll(): void {
+  public mapToSelectAll(): any {
     this.service.getContacts().subscribe((data) => {
       const pages = data.length - 1;
       for (let i = 0; i <= pages; i++) {
@@ -151,6 +154,7 @@ export class OpportunityComponent {
           title: item.title
         }
           this.contacts.push({ label: result.name, value: result })
+
         }
 
         );
@@ -163,32 +167,32 @@ export class OpportunityComponent {
     });
     this.service.getSource().subscribe((data) => {
       data.deal_sources.map((item: any) =>
-        this.sources.push({ label: item.name, value: item })
+        this.sources.push({ label: item.name, value: item._id })
       );
     });
     this.service.getOrganizations().subscribe((data: any) => {
       const pages = data.length - 1;
       for (let i = 0; i <= pages; i++) {
         data[i].organizations.map((item: any) =>
-          this.organizations.push({ label: item.name, value: item })
+          this.organizations.push({ label: item.name, value: item._id })
         );
       }
     });
     this.service.getCampaigns().subscribe((data) => {
       data.campaigns.map((item: any) =>
-        this.campaigns.push({ label: item.name, value: item })
+        this.campaigns.push({ label: item.name, value: item._id })
       );
     });
     this.service.getUsers().subscribe((data) => {
       data.users.map((item: any) =>
-      this.users.push({label: item.name, value: item})
+      this.users.push({label: item.name, value: item._id })
       )
     })
   }
 
   public addFunnelStep(funnel: any): void {
     funnel.deal_stages.map((f: any) => {
-      this.funnelStep.push({ label: f.name, value: f });
+      this.funnelStep.push({ label: f.name, value: f.id });
     });
   }
 }

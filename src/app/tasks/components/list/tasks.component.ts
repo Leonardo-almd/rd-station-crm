@@ -21,6 +21,7 @@ export class TasksComponent {
   form;
   disclaimer: PoDisclaimer[] = [];
   loading = false;
+  height = 500
 
   readonly columns: Array<any> = [
     { property: 'name', label: 'Oportunidade' },
@@ -81,6 +82,7 @@ export class TasksComponent {
     return dataFormatada;
   }
 
+
   public mapToSelectItems(search: any = null): any {
     if (search?.length > 0) {
       this.items = [];
@@ -112,6 +114,7 @@ export class TasksComponent {
           });
         }
       });
+      this.items = [this.items[0],this.items[1],this.items[2],this.items[3],]
       this.form.patchValue({
         search: '',
       });
