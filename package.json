@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "http-server dist/rd-station-crm",
     "build-prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.0.3",
+    "@angular/cli": "^11.0.0",
     "@angular/common": "~15.0.3",
     "@angular/compiler": "~15.0.3",
     "@angular/core": "~15.0.3",
@@ -23,9 +24,13 @@
     "@firebase/auth": "^0.22.0",
     "@po-ui/ng-components": "^15.5.1",
     "@po-ui/ng-templates": "^15.5.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "firebase": "^9.19.1",
     "firebase-admin": "^11.6.0",
     "firebase-functions": "^4.2.1",
+    "http-proxy-middleware": "^2.0.6",
+    "http-server": "^14.1.1",
     "rxjs": "~7.5.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
