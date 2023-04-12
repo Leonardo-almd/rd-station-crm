@@ -24,6 +24,8 @@
     "@po-ui/ng-components": "^15.5.1",
     "@po-ui/ng-templates": "^15.5.1",
     "firebase": "^9.19.1",
+    "firebase-admin": "^11.6.0",
+    "firebase-functions": "^4.2.1",
     "rxjs": "~7.5.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
