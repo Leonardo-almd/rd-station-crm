@@ -11,6 +11,7 @@ import { PoToolbarModule } from '@po-ui/ng-components';
 import { PoMenuModule } from '@po-ui/ng-components';
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +23,7 @@ import { PoMenuModule } from '@po-ui/ng-components';
     PoToolbarModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

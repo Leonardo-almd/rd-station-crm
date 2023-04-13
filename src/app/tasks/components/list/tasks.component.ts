@@ -84,6 +84,7 @@ export class TasksComponent {
 
 
   public mapToSelectItems(search: any = null): any {
+    console.log(search)
     if (search?.length > 0) {
       this.items = [];
       this.disclaimer = [];
@@ -114,7 +115,6 @@ export class TasksComponent {
           });
         }
       });
-      this.items = [this.items[0],this.items[1],this.items[2],this.items[3],]
       this.form.patchValue({
         search: '',
       });
