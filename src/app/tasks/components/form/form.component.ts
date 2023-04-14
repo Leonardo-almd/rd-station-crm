@@ -62,9 +62,8 @@ export class FormComponent {
 
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
-      if (user) {
-      } else {
-        this.router.navigate(['login']);
+      if (!user) {
+this.router.navigate(['login']);
       }
     });
     this.form.valueChanges.subscribe((newValue) => {
@@ -86,6 +85,8 @@ export class FormComponent {
   title = 'Criar Tarefa';
 
   open(opportunity: any) {
+    this.onPrimaryAction.disabled = true;
+
     // this.form?.reset(this.defaultFormValue);
     this.form.patchValue({
       deal_id: opportunity.id,

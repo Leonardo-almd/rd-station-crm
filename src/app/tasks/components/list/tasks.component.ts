@@ -59,8 +59,7 @@ export class TasksComponent {
 
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
-      if (user) {
-      } else {
+      if (!user) {
         this.router.navigate(['login']);
       }
     });

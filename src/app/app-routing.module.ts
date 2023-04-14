@@ -12,14 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then((m) => m.LoginModule)
   },
   {
-    path: 'opportunity',
-    loadChildren: () => import('./opportunity/opportunity.module').then((m) => m.OpportunityModule)
-  },
-  {
-    path: 'tasks',
-    loadChildren: () => import('./tasks/tasks.module').then((m) => m.TasksModule)
-  },
-  {
     path: '**',
     redirectTo: '/login', pathMatch: 'full'
   }

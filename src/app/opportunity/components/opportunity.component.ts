@@ -63,9 +63,8 @@ export class OpportunityComponent {
 
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
-      if (user) {
-      } else {
-        this.router.navigate(['login']);
+      if (!user) {
+this.router.navigate(['login']);
       }
     });
     // this.mapToSelectAll()

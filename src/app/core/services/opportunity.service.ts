@@ -14,7 +14,7 @@ export class OpportunityService {
     const limit = 200;
     // Faz a primeira solicitação para obter as informações de metadados
     return this.http
-      .get(`/api/contacts?token=${token}&limit=${limit}&metadata=true`)
+      .get(`/api/contacts?&limit=${limit}&metadata=true`)
       .pipe(
         mergeMap((response: any) => {
           console.log(response);
@@ -34,11 +34,11 @@ export class OpportunityService {
   }
 
   getFunnel(): Observable<any> {
-    return this.http.get(`/api/deal_pipelines?token=${environment.token}`);
+    return this.http.get(`/api/deal_pipelines`);
   }
 
   getSource(): Observable<any> {
-    return this.http.get(`/api/deal_sources?token=${environment.token}`);
+    return this.http.get(`/api/deal_sources`);
   }
 
   getOrganizations(): Observable<any> {
@@ -67,14 +67,14 @@ export class OpportunityService {
   }
 
   getCampaigns(): Observable<any> {
-    return this.http.get(`/api/campaigns?token=${environment.token}`);
+    return this.http.get(`/api/campaigns`);
   }
 
   getUsers(): Observable<any> {
-    return this.http.get(`/api/users?token=${environment.token}`);
+    return this.http.get(`/api/users`);
   }
 
   createOpportunity(payload: any): Observable<any> {
-    return this.http.post(`/api/deals?token=${environment.token}`, payload);
+    return this.http.post(`/api/deals`, payload);
   }
 }
