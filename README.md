@@ -2,7 +2,6 @@
   <a href="#Tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
    <a href="#Projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#Imagens">Imagens</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <a id="Tecnologias"></a>
@@ -32,7 +31,4 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 
 
-<a id="Licença"></a>
-## 📝 Licença
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/future4code/Freire-labe-ninja4/blob/master/LICENCE) para mais detalhes.
