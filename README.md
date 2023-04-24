@@ -24,7 +24,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 <a id="Imagens"></a>
 ## 🖼️ Imagens
 
-| Tela de Login | Cadastro de Oportunidade | Visualização de Oportunidades | Cadastro de Tarefa | 
+| Tela de Login | Cadastro de Oportunidade | Visualização de Oportunidades | 
 |---|---|---|
 | ![Tela de Login](https://user-images.githubusercontent.com/45954874/176905184-0b59c220-b853-42c5-b0dc-4dc9ede6733a.jpg) | ![Cadastro de Oportunidade](https://user-images.githubusercontent.com/45954874/176949715-bb573766-df09-49ad-9526-407fd95915ed.jpg) | ![Visualização de Oportunidades](https://user-images.githubusercontent.com/45954874/176949780-a73de3fd-29d9-4ea5-9dc9-7d860a934573.jpg) | 
 
